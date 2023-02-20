@@ -1,0 +1,3 @@
+[28-Jan-2023 05:21:23 UTC] PHP Parse error:  syntax error, unexpected token "}" in /home/plusir/public_html/app/Helpers/helper.php on line 59
+[28-Jan-2023 05:21:24 UTC] PHP Parse error:  syntax error, unexpected token "}" in /home/plusir/public_html/app/Helpers/helper.php on line 59
+[30-Jan-2023 07:32:55 UTC] PHP Fatal error:  Cannot declare class App\Models\Setting, because the name is already in use in /home/plusir/public_html/app/Models/SocialNetworkSetting.php on line 8

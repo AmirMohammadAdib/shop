@@ -1,0 +1,62 @@
+@media screen and (max-width: 740px) {
+    .photo-ping {
+        width: 30%;
+        flex-direction: column;
+        margin: 0;
+        margin-right: 10px;
+    }
+    .internet-device{
+        width: 100%;
+        margin: 0;
+    }
+    .my-ping{
+        margin-right: 0;
+        margin-top: 10px;
+    }
+
+    .option{
+        font-size: 20px;
+    }
+    .user-ping h2{
+        font-size: 25px;
+    }
+    .user-ping h6{
+        font-size: 20px;
+    }
+    .item-device{
+        width: 20%;
+        height: 120px;
+        margin-bottom: 20px;
+    }
+
+    .sport{
+        width: 100%;
+    }   
+    .best-function{
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .sports-user{
+        flex-direction: column-reverse;
+    }
+
+    .container-login{
+        margin-top: 10px !important;
+    }
+    .login-box{
+        width: 95%;
+    }
+    .poster-login{
+        display: none;
+    }
+    .fields-login{
+        width: 100%;
+        padding: 10px;
+    }
+    .options button{
+      margin: 5px;
+    }
+    .avatar-list span{
+      font-size: 10px
+    }
+}

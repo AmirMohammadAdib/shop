@@ -1,0 +1,42 @@
+@media screen and (max-width: 499px) {
+    .poster{
+        flex-direction: column;
+    }
+    .img-name{
+        margin: 0;
+    }
+    .user-ping{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 15px;
+        padding: 10px 0;
+    }
+    .operator-ping{
+        width: 100%;
+    }
+    .container h1{
+        font-size: 25px;
+    }
+    .img-name{
+        width: 100%;
+    }
+    .item-device{
+        width: 43%;
+        height: 110px;
+    }
+    .options{
+        flex-wrap: wrap;
+    }
+    
+    #trafic, #pact_last{
+        border-bottom: 3px solid var(--gray);
+    }
+    #trafic{
+        border-radius: 0 10px 0 0 !important;
+    }
+    #pact_last{
+        border-radius: 10px 0 0 0 !important;
+    }
+}

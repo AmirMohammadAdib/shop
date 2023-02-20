@@ -1,0 +1,63 @@
+@media screen and (max-width: 1600px) {
+    .chart{
+        width: 100%;
+    }
+    .poster-ping{
+        flex-direction: column;
+        align-items: center;
+    }
+    .poster{
+        justify-content: center;
+        margin-bottom: 50px;
+    }
+    
+    .list-ping{
+        width: 100%;
+        justify-content: space-between;
+    }
+    .item-device{
+        width: 20%;
+        height: 230px;
+    }
+    .sidebar{
+        width: 20%;
+    }
+    #container_admin{
+        width: 72%;
+        padding: 20px;
+        margin-right: 27%;
+    }
+    .box-dashboard{
+        width: 100%;
+    }
+    #every_ip{
+        margin-bottom: 20px;
+    }
+    .container{
+        width: 70%;
+        margin-right: 30%;
+    }
+    .types-users .type{
+        width: 49%;
+        margin-bottom: 20px;
+    }
+    .types-users .type img{
+        width: 35% !important;
+    }
+    #vector_heart{
+        width: 24% !important;
+    }
+    .personal-container{
+        width: 100%;
+    }
+    .personal-user{
+        position: fixed;
+        width: 350px;
+        left: -350px;
+        top: 0;
+        border-radius: 0;
+    }
+    .open-side {
+        display: block
+    }
+}

