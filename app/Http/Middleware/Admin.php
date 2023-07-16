@@ -12,7 +12,7 @@ class Admin extends Middleware
   {
      if (Auth::check())
      {
-       if(ip() == '78.157.42.115' OR ip() == '185.11.89.114'){
+       if(true){
           if(Auth::user()->isAdmin())
           {
               return $next($request);

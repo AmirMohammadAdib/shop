@@ -1,0 +1,58 @@
+@font-face {
+    font-family: IRANSans;
+    src: url(../fonts/IRANSans/Iranian\ Sans.ttf);
+}
+
+*{
+    direction: rtl;
+    text-align: right;
+    font-family: IRANSans;
+}
+
+a{
+    text-decoration: none;
+}
+
+.bg-gray{
+    background-color: #404E67;
+    color: #dcdcdc;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.bg-custom-yello {
+    background: linear-gradient(to right, #feb798, #fe9365);
+}
+
+.bg-custom-green {
+    background: linear-gradient(to right, #0df3a3, #0ac282);
+}
+
+.bg-custom-pink {
+    background: linear-gradient(to right, #fe909d, #fe5d75);
+}
+.bg-custom-blue {
+    background: linear-gradient(to right, #01dbd0, #01a9ac);
+}
+
+.max-width-16-rem {
+    max-width: 16px;
+}
+
+.width-8-rem {
+    width: 8px;
+}
+.main-body table {
+    font-size: .75rem;
+}
+
+.lefter {
+    display: flex;
+    flex-direction: row-reverse;
+}
+
+.lefter div, button, a {
+    margin: 0 .3rem;
+}
