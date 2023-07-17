@@ -17,10 +17,10 @@
                 </section>
                 <section class="sidebar-dropdown">
                     <a href="{{ route('category.index') }}">دسته بندی</a>
-                    <a href="#">فرم کالا</a>
+                    <a href="{{ route('property.index') }}">فرم کالا</a>
                     <a href="{{ route('brand.index') }}">برندها</a>
-                    <a href="#">کالاها</a>
-                    <a href="#">انبار</a>
+                    <a href="{{ route('product.index') }}">کالاها</a>
+                    <a href="{{ route('store.index') }}">انبار</a>
                     <a href="{{ route("comment.index") }}">نظرات</a>
                 </section>
             </section>

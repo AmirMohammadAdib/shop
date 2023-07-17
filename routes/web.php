@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\Market\OrderController;
 use App\Http\Controllers\Admin\Market\PaymentController;
 use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\GalleryController;
+use App\Http\Controllers\Admin\Market\PropertyController;
+use App\Http\Controllers\Admin\Market\StoreController;
 
 
 /*
@@ -63,5 +65,9 @@ Route::prefix("admin")->group(function(){
             //gallery
             Route::resource("gallery", GalleryController::class)->only(['index', 'store', 'destroy']);
         });
+
+        Route::resource("property", PropertyController::class);
+        Route::resource("store", StoreController::class)->only(["index", "store", "edit", "update", "destroy"]);
+        Route::get("store/add-to-store", [StoreController::class, "addToStore"])->name("store.addToStore");
     });
 });

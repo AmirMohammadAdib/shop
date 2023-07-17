@@ -18,4 +18,5 @@
         </section>
         @include("admin.layouts.scripts")
     </body>
+@yield("script")
 </html>
