@@ -13,6 +13,15 @@ use App\Http\Controllers\Admin\Market\ProductController;
 use App\Http\Controllers\Admin\Market\GalleryController;
 use App\Http\Controllers\Admin\Market\PropertyController;
 use App\Http\Controllers\Admin\Market\StoreController;
+use App\Http\Controllers\Admin\Content\CategoryController As CategoryContent;
+use App\Http\Controllers\Admin\Content\CommentController As CommentContent;
+use App\Http\Controllers\Admin\Content\FAQController;
+use App\Http\Controllers\Admin\Content\MenuController;
+use App\Http\Controllers\Admin\Content\PostController;
+use App\Http\Controllers\Admin\Content\PageController;
+use App\Http\Controllers\Admin\User\UserAdminController;
+use App\Http\Controllers\Admin\User\CustomerController;
+use App\Http\Controllers\Admin\User\RoleController;
 
 
 /*
@@ -21,16 +30,16 @@ use App\Http\Controllers\Admin\Market\StoreController;
 |--------------------------------------------------------------------------
 */
 
-Route::prefix("admin")->group(function(){
+Route::prefix("admin")->group(function() {
     Route::get("/", [AdminDashboardController::class, 'index'])->name("admin.index");
 
-    Route::prefix("market")->group(function(){
+    Route::prefix("market")->group(function () {
         Route::resource("category", CategoryController::class);
         Route::resource("brand", BrandController::class);
         Route::resource("comment", CommentController::class)->only(["index", "show", "destroy"]);
         Route::resource("delivery", DeliveryController::class);
 
-        Route::prefix("discount")->group(function() {
+        Route::prefix("discount")->group(function () {
             Route::get("/coupon", [DiscountController::class, "coupon"])->name("discount.coupon.index");
             Route::get("/coupon/create", [DiscountController::class, "couponCreate"])->name("discount.coupon.create");
             Route::get("/common-discount", [DiscountController::class, "commonDiscount"])->name("discount.commonDiscount.index");
@@ -39,7 +48,7 @@ Route::prefix("admin")->group(function(){
             Route::get("/amazing-sale/create", [DiscountController::class, "amazingSaleCreate"])->name("discount.amazingSale.create");
         });
 
-        Route::prefix("order")->group(function() {
+        Route::prefix("order")->group(function () {
             Route::get("/", [OrderController::class, "all"])->name("order.all");
             Route::get("/new-order", [OrderController::class, "newOrders"])->name("order.newOrders");
             Route::get("/sending", [OrderController::class, "sending"])->name("order.sending");
@@ -52,7 +61,7 @@ Route::prefix("admin")->group(function(){
             Route::get("/cancel-order", [OrderController::class, "cancelOrder"])->name("order.cancelOrder");
         });
 
-        Route::prefix("payment")->group(function() {
+        Route::prefix("payment")->group(function () {
             Route::get("/", [PaymentController::class, "index"])->name("payment.index");
             Route::get("/online", [PaymentController::class, "online"])->name("payment.online");
             Route::get("/offline", [PaymentController::class, "offline"])->name("payment.offline");
@@ -61,7 +70,7 @@ Route::prefix("admin")->group(function(){
         });
 
         Route::resource("product", ProductController::class);
-        Route::prefix("product")->group(function() {
+        Route::prefix("product")->group(function () {
             //gallery
             Route::resource("gallery", GalleryController::class)->only(['index', 'store', 'destroy']);
         });
@@ -69,5 +78,33 @@ Route::prefix("admin")->group(function(){
         Route::resource("property", PropertyController::class);
         Route::resource("store", StoreController::class)->only(["index", "store", "edit", "update", "destroy"]);
         Route::get("store/add-to-store", [StoreController::class, "addToStore"])->name("store.addToStore");
+    });
+
+    Route::prefix("content")->group(function () {
+        Route::prefix("category")->group(function () {
+            Route::get("/", [CategoryContent::class, "index"])->name("content.category.index");
+            Route::get("/create", [CategoryContent::class, "create"])->name("content.category.create");
+            Route::post("/store", [CategoryContent::class, "store"])->name("content.category.store");
+            Route::get("/edit/{id}", [CategoryContent::class, "edit"])->name("content.category.edit");
+            Route::put("/update/{id}", [CategoryContent::class, "update"])->name("content.category.update");
+            Route::delete("/destroy/{id}", [CategoryContent::class, "destroy"])->name("content.category.destroy");
+        });
+
+        Route::prefix("comment")->group(function () {
+            Route::get("/", [CommentContent::class, "index"])->name("content.comment.index");
+            Route::get("/show/{id}", [CommentContent::class, "show"])->name("content.comment.show");
+            Route::delete("/destroy/{id}", [CommentContent::class, "destroy"])->name("content.comment.destroy");
+        });
+
+        Route::resource("faq", FAQController::class);
+        Route::resource("menu", MenuController::class);
+        Route::resource("page", PageController::class);
+        Route::resource("post", PostController::class);
+    });
+
+    Route::prefix("user")->group(function () {
+        Route::resource("user-admin", UserAdminController::class);
+        Route::resource("customer", CustomerController::class);
+        Route::resource("role", RoleController::class);
     });
 });
