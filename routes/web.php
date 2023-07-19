@@ -22,6 +22,10 @@ use App\Http\Controllers\Admin\Content\PageController;
 use App\Http\Controllers\Admin\User\UserAdminController;
 use App\Http\Controllers\Admin\User\CustomerController;
 use App\Http\Controllers\Admin\User\RoleController;
+use App\Http\Controllers\Admin\Notify\EmailController;
+use App\Http\Controllers\Admin\Notify\SMSController;
+use App\Http\Controllers\Admin\Ticket\TicketController;
+use App\Http\Controllers\Admin\Setting\SettingController;
 
 
 /*
@@ -107,4 +111,18 @@ Route::prefix("admin")->group(function() {
         Route::resource("customer", CustomerController::class);
         Route::resource("role", RoleController::class);
     });
+
+    Route::prefix("notify")->group(function () {
+        Route::resource("email", EmailController::class);
+        Route::resource("sms", SMSController::class);
+    });
+
+    Route::resource("ticket", TicketController::class);
+    Route::prefix("ticket")->group(function () {
+        Route::get("new-tickets", [TicketController::class, "newTicket"])->name("ticket.newTicket");
+        Route::get("open-tickets", [TicketController::class, "openTicket"])->name("ticket.openTicket");
+        Route::get("close-tickets", [TicketController::class, "closeTicket"])->name("ticket.closeTicket");
+    });
+
+    Route::resource("setting", SettingController::class);
 });

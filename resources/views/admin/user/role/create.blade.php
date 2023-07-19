@@ -2,20 +2,6 @@
 
 @section('head-tag')
     <title>ایجاد نقش</title>
-    <style>
-        p{
-            margin: 0;
-            font-size: 14px;
-            margin-right: 0.4rem;
-        }
-
-        .selected-item{
-            display: flex;
-            flex-direction: row-reverse;
-            align-items: center;
-            justify-content: flex-end;
-        }
-    </style>
 @endsection
 
 @section('content')
@@ -61,49 +47,37 @@
                             </section>
                         </section>
                         <section class="row pt-3">
-                            <section class="col-6 col-md-3 selected-item my-2">
-                                <p>نمایش دسته جدید</p>
-                                <input type="checkbox" name="" id="">
+                            <section class="col-6 col-md-3 my-2">
+                                <input type="checkbox" class="form-check-input" name="" id="check1" checked>
+                                <label for="check1" class="form-check-label mr-3">نمایش دسته جدید</label>
                             </section>
-                            <section class="col-6 col-md-3 selected-item my-2">
-                                <p>نمایش دسته جدید</p>
-                                <input type="checkbox" name="" id="">
+                            <section class="col-6 col-md-3 my-2">
+                                <input type="checkbox" class="form-check-input" name="" id="check2" checked>
+                                <label for="check2" class="form-check-label mr-3">ایجاد دسته جدید</label>
                             </section>
-                            <section class="col-6 col-md-3 selected-item my-2">
-                                <p>نمایش دسته جدید</p>
-                                <input type="checkbox" name="" id="">
+                            <section class="col-6 col-md-3 my-2">
+                                <input type="checkbox" class="form-check-input" name="" id="check3" checked>
+                                <label for="check3" class="form-check-label mr-3">ویرایش دسته جدید</label>
                             </section>
-                            <section class="col-6 col-md-3 selected-item my-2">
-                                <p>نمایش دسته جدید</p>
-                                <input type="checkbox" name="" id="">
+                            <section class="col-6 col-md-3 my-2">
+                                <input type="checkbox" class="form-check-input" name="" id="check4" checked>
+                                <label for="check4" class="form-check-label mr-3">حذف دسته جدید</label>
                             </section>
-                            <section class="col-6 col-md-3 selected-item my-2">
-                                <p>نمایش دسته جدید</p>
-                                <input type="checkbox" name="" id="">
+                            <section class="col-6 col-md-3 my-2">
+                                <input type="checkbox" class="form-check-input" name="" id="check5" checked>
+                                <label for="check5" class="form-check-label mr-3">نمایش کالا جدید</label>
                             </section>
-                            <section class="col-6 col-md-3 selected-item my-2">
-                                <p>نمایش دسته جدید</p>
-                                <input type="checkbox" name="" id="">
+                            <section class="col-6 col-md-3 my-2">
+                                <input type="checkbox" class="form-check-input" name="" id="check6" checked>
+                                <label for="check6" class="form-check-label mr-3">ایجاد کالا جدید</label>
                             </section>
-                            <section class="col-6 col-md-3 selected-item my-2">
-                                <p>نمایش دسته جدید</p>
-                                <input type="checkbox" name="" id="">
+                            <section class="col-6 col-md-3 my-2">
+                                <input type="checkbox" class="form-check-input" name="" id="check7" checked>
+                                <label for="check7" class="form-check-label mr-3">ویرایش کالا جدید</label>
                             </section>
-                            <section class="col-6 col-md-3 selected-item my-2">
-                                <p>نمایش دسته جدید</p>
-                                <input type="checkbox" name="" id="">
-                            </section>
-                            <section class="col-6 col-md-3 selected-item my-2">
-                                <p>نمایش دسته جدید</p>
-                                <input type="checkbox" name="" id="">
-                            </section>
-                            <section class="col-6 col-md-3 selected-item my-2">
-                                <p>نمایش دسته جدید</p>
-                                <input type="checkbox" name="" id="">
-                            </section>
-                            <section class="col-6 col-md-3 selected-item my-2">
-                                <p>نمایش دسته جدید</p>
-                                <input type="checkbox" name="" id="">
+                            <section class="col-6 col-md-3 my-2">
+                                <input type="checkbox" class="form-check-input" name="" id="check8" checked>
+                                <label for="check8" class="form-check-label mr-3">حذف کالا جدید</label>
                             </section>
                         </section>
                     </form>
