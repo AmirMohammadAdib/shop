@@ -89,9 +89,10 @@ Route::prefix("admin")->group(function() {
             Route::get("/", [CategoryContent::class, "index"])->name("content.category.index");
             Route::get("/create", [CategoryContent::class, "create"])->name("content.category.create");
             Route::post("/store", [CategoryContent::class, "store"])->name("content.category.store");
-            Route::get("/edit/{id}", [CategoryContent::class, "edit"])->name("content.category.edit");
-            Route::put("/update/{id}", [CategoryContent::class, "update"])->name("content.category.update");
-            Route::delete("/destroy/{id}", [CategoryContent::class, "destroy"])->name("content.category.destroy");
+            Route::get("/edit/{postCategory}", [CategoryContent::class, "edit"])->name("content.category.edit");
+            Route::put("/update/{postCategory}", [CategoryContent::class, "update"])->name("content.category.update");
+            Route::delete("/destroy/{postCategory}", [CategoryContent::class, "destroy"])->name("content.category.destroy");
+            Route::get("/status/{postCategory}", [CategoryContent::class, "status"])->name("content.category.status");
         });
 
         Route::prefix("comment")->group(function () {
@@ -101,9 +102,14 @@ Route::prefix("admin")->group(function() {
         });
 
         Route::resource("faq", FAQController::class);
+        Route::get("faq/status/{faq}", [FAQController::class, "status"])->name("faq.status");
+
         Route::resource("menu", MenuController::class);
         Route::resource("page", PageController::class);
         Route::resource("post", PostController::class);
+        Route::get("post/status/{post}", [PostController::class, "status"])->name("post.status");
+        Route::get("post/commentable/{post}", [PostController::class, "commentable"])->name("post.commentable");
+
     });
 
     Route::prefix("user")->group(function () {

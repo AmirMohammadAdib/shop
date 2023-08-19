@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Content;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Content\FAQRequest;
+use App\Models\Content\FAQ;
 use Illuminate\Http\Request;
 
 class FAQController extends Controller
@@ -14,7 +16,8 @@ class FAQController extends Controller
      */
     public function index()
     {
-        return view("admin.content.faq.index");
+        $faqs = FAQ::orderBy("created_at", "desc")->simplePaginate(15);
+        return view("admin.content.faq.index", compact("faqs"));
     }
 
     /**
@@ -33,20 +36,11 @@ class FAQController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FAQRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $inputs = $request->all();
+        FAQ::create($inputs);
+        return redirect()->route("faq.index")->with("swal-success", 'سوال جدید شما با موفقیت ثبت شد');
     }
 
     /**
@@ -55,9 +49,9 @@ class FAQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(FAQ $faq)
     {
-        //
+        return view("admin.content.faq.edit", compact("faq"));
     }
 
     /**
@@ -67,9 +61,11 @@ class FAQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FAQRequest $request, FAQ $faq)
     {
-        //
+        $inputs = $request->all();
+        $faq->update($inputs);
+        return redirect()->route("faq.index")->with("swal-success", 'سوال با موفقیت ویرایش شد');
     }
 
     /**
@@ -78,8 +74,24 @@ class FAQController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(FAQ $faq)
     {
-        //
+        $faq->delete();
+        return back()->with("swal-success", 'سوال با موفقیت حذف شد');
+    }
+
+    public function status(FAQ $faq)
+    {
+        $faq->status = $faq->status == 0 ? 1 : 0;
+        $result = $faq->save();
+        if($result){
+            if($faq->status == 0){
+                return response()->json(['status' => true, 'checked' => false]);
+            }else{
+                return response()->json(['status' => true, 'checked' => true]);
+            }
+        }else{
+            return response()->json(["status" => false]);
+        }
     }
 }

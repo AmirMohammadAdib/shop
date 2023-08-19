@@ -27,6 +27,7 @@ return new class extends Migration
             $table->foreignId("author_id")->constrained("users");
             $table->foreignId("category_id")->constrained("post_categories");
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
